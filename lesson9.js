@@ -158,7 +158,7 @@
 //         while (true) {
 //             let key = prompt("Enter the key for the object (or click Cancel to finish entering:)");
 //             if (key === null) {
-//                 continueEnteringObjects = confirm("Бажаєте продовжити введення об'єктів?");
+//                 continueEnteringObjects = confirm("Do you want to continue entering objects?");
 //                 break;
 //             }
 
@@ -184,7 +184,6 @@
 
 // console.log(resultArray);
 
-// Створення таблиці та елементів
 // const table = document.createElement('table');
 // const tbody = document.createElement('tbody');
 
