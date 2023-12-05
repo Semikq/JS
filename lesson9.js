@@ -78,16 +78,18 @@
 
 
 
-// let user = prompt()
-// let ss = prompt()
-// let result ="";
-// for(let i = 0;i<user;i++){
-//     for(let j = 0;j<ss;j++){
-//         result += ".#"
+// let sum = ''
+// for(let i = 0; i<10; i++){
+//     for(let j = 0; j<10; j++){
+//         if(( i + j ) % 2===0){
+//             sum += "."
+//         }else{
+//             sum += "#"
+//         }
 //     }
-//     result+="\n"
+//     sum += "\n"
 // }
-// console.log(result)
+// console.log(sum)
 
 
 
