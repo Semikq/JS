@@ -148,32 +148,21 @@
 
 
 
-// const readArrayOfObjects = () => {
-//     const arrayOfObjects = [];
-
-//     while (true) {
-//         const userInput = {};
-//         let continueEnteringObjects;
-
-//         while (true) {
-//             let key = prompt("Enter the key for the object (or click Cancel to finish entering:)");
-//             if (key === null) {
-//                 continueEnteringObjects = confirm("Do you want to continue entering objects?");
-//                 break;
-//             }
-
-//             const value = prompt(`Enter a value for the key "${key}":`);
-//             userInput[key] = value;
+// function readArrayOfObjects() {
+//     const objectData = {};
+//     for (;;) {
+//         for (let key = prompt('Enter the key:'); key !== null; key = prompt('Enter another key:')) {
+//             const value = prompt(`Enter a value for the key '${key}':`);
+//             objectData[key] = value;
 //         }
-
-//         arrayOfObjects.push(userInput);
-//         if (!continueEnteringObjects) {
+//         if (!confirm('Do you want to enter another object?')) {
 //             break;
 //         }
 //     }
-
-//     return arrayOfObjects;
-// };
+//     return objectData
+// }
+// const objectData = readArrayOfObjects();
+// console.log(objectData);
 
 
 
