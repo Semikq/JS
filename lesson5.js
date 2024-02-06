@@ -26,9 +26,9 @@
 }
 
 {
-    const arr = [[0,0,0,0,0],[0,1,2,3,4,5],[0,2,4,6,8,10],[0,3,6,9,12,15],[0,4,8,12,16,20],[0,5,10,15,20,25]]
-    console.log(arr[3][5])
-}
+    const arr = [[0,0,0,0,0,0],[0,1,2,3,4,5],[0,2,4,6,8,10],[0,3,6,9,12,15],[0,4,8,12,16,20],[0,5,10,15,20,25]]
+    console.log(arr[prompt()][prompt()])
+} 
 
 {
     let arr = [[0,0,0,0,0],[0,1,2,3,4,5],[0,2,4,6,8,10],[0,3,6,9,12,15],[0,4,8,12,16,20],[0,5,10,15,20,25]]
@@ -37,7 +37,7 @@
 }
 
 
-if(all === "seven"){
+{
     const sentence = prompt("Enter a sentence")
     const word = prompt("Enter the word you want to find")
     if(sentence.includes(word)){
@@ -95,8 +95,8 @@ if(all === "seven"){
 }
 
 {
-  const arr = [[0,0,0,0,0],[0,1,2,3,4,5],[0,2,4,6,8,10],[0,3,6,9,12,15],[0,4,8,12,16,20],[0,5,10,15,20,25]]
-  const arr2 = [...arr[0],...arr[1],...arr[2],...arr[3],...arr[4],...arr[5]]
+  const arr = [[0,0,0,0,0,0],[0,1,2,3,4,5],[0,2,4,6,8,10],[0,3,6,9,12,15],[0,4,8,12,16,20],[0,5,10,15,20,25]].map(x => x.slice(1))
+  const arr2 = [...arr[1],...arr[2],...arr[3],...arr[4],...arr[5]]
   console.log(arr2)
 }
 
@@ -232,14 +232,14 @@ const currencies = ["USD", "EUR", "GBP", "UAH"]
   const bracketsStack = []
   let   i = 0
   for (const character of line){
-      if("[,(,{".includes(character)){
+      if(character === "(" || character === "[" || character === "{"){
           bracketsStack.push(character)
-      }else if("],),}".includes(character)){
+      }else if(character === ")" || character === "]" || character === "}"){
           let last = bracketsStack.pop()
           if(
-          character === ")" && last === "(" ||
-          character === "]" && last === "[" ||
-          character === "}" && last === "{"){
+          last === "(" && character === ")" ||
+          last === "[" && character === "]" ||
+          last === "{" && character === "}"){
               console.log("All is well")
           }else{
               console.log(`Position error ${i}`)
