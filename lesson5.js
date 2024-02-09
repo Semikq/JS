@@ -242,7 +242,7 @@ const currencies = ["USD", "EUR", "GBP", "UAH"]
           last === "{" && character === "}"){
               console.log("All is well")
           }else{
-              console.log(`Position error ${i}`)
+              console.log(`Position error ${i + 1}`)
           }
       }else{
           console.log("These are not brackets")
