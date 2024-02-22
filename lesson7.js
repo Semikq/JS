@@ -1,240 +1,224 @@
-let all = prompt()
-if(all === "one"){
-const temp = (celsia) => celsia* (9/5) + 32;
+{
+    const celsius = celsius => (celsius * 9/5) + 32
+    const fahrenheit = fahrenheit => (5/9) * (fahrenheit - 32)
 }
 
-if(all === "two"){
-const RGB = (r,g,b) => `#${r.toString(16).padStart(2,"0")}${g.toString(16) .padStart(2,"0")}${b.toString(16) .padStart(2,"0")}`;
+{
+    const RGB = (r,g,b) => "#"+r.toString(16).padStart(2,"0") + g.toString(16).padStart(2,"0") + b.toString(16).padStart(2,"0")
 }
 
-if(all === "three"){
-const Number_floor = +prompt('Enter the number of floors:');
-const number_of_apartments = +prompt('Enter the number of apartments on the floor:');
-const apartment_number = +prompt('Enter apartment number:');
-
-const dom = (Number_floor, number_of_apartments, apartment_number) => {
-const apartments_per_floor = Number_floor * number_of_apartments;
-const entrance = Math.ceil(apartment_number / apartments_per_floor);
-const floor = Math.ceil((apartment_number % apartments_per_floor) / number_of_apartments);
-return { entrance, floor };};
-
-const result = dom(Number_floor, number_of_apartments, apartment_number);
-
-console.log(`entrance - ${result.entrance}, floor - ${result.floor}`);
+{
+    const floors = +prompt('Enter the number of floors:');
+    const apartmentsPerFloor = +prompt('Enter the number of apartments per floor:');
+    const apartmentNumber = +prompt('Enter the apartment number:');
+    const house = (floors, apartmentsPerFloor,apartmentNumber) => {
+        totalApartments = floors * apartmentsPerFloor
+        entrance = Math.ceil(apartmentNumber / totalApartments)
+        floor = Math.ceil((apartmentNumber % totalApartments) / apartmentsPerFloor)
+        return {entrance,floor}
+    };
+    const result = house(floors,apartmentsPerFloor,apartmentNumber)
+    console.log(`entrance - ${result.entrance}, floor - ${result.floor}`)
 }
 
-if(all === "four"){
-const capitalize = () => {
-const names = prompt("Name")
-const surnames = prompt("Surname")
-const fatherNames = prompt("FatherNames")
+{
+    const credentials = () => {
+        const capitalize = (str) => str.slice(0,1).toUpperCase() + str.slice(1).toLowerCase()
 
-const name =  names.charAt(0).toUpperCase() + names.slice(1).toLowerCase();
-const surname = surnames.charAt(0).toUpperCase() + surnames.slice(1).toLowerCase();
-const fatherName = fatherNames.charAt(0).toUpperCase() + fatherNames.slice(1).toLowerCase();
-const fullName = `${name} ${surname} ${fatherName}`
-return{name,surname,fatherName,fullName}
-}
-console.log(capitalize())
-}
+        const name = capitalize(prompt().trim())
+        const surname = capitalize(prompt().trim())
+        const fatherName = capitalize(prompt().trim())
+        const fullName = `${name} ${surname} ${fatherName}`
 
-if(all === "five"){
-const user = prompt("Your word through: ");
-const text = (user) => {const result = user.split("\\n ").join("\n");
-return result;};
-console.log(text(user));
-}
-
-if(all === "six"){
-const f = (message) => prompt(message);
-const rik = f("Enter your age");
-const end = rik ? 2023 - rik : "No";
-console.log(end);
-}
-
-if(all === "seven"){
-const b = () => {
-    const a = (message) => prompt(message);
-    const login = a("Enter your login");
-    if(login === "admin"){
-        const password = a("Enter your password");
-        if(password === "qwerty"){
-            alert("Welcome");
-            return true;
-        }else{
-            alert("Incorrect password");
-            return false;
-        }
-    }else{
-        alert("Incorrect login");
-        return false;
+        return {name,surname,fatherName,fullName}
     }
-}
-console.log(b());
-}
-
-if(all === "eight"){
-const arr = [[0, 0, 0, 0, 0, 0],[0, 1, 2, 3, 4, 5],[0, 2, 4, 6, 8, 10],[0, 3, 6, 9, 12, 15],[0, 4, 8, 12, 16, 20],[0, 5, 10, 15, 20, 25]];
-const table = (arr) => {
-    let str = "<table>";
-    for(const tr of arr){
-        str += `<tr></tr>`;
-        for(const td of tr){
-            str+=`<td>${td}</td>`;
-        }
-    }
-    str += "</table>";
-    return str;
-}
-document.write(table(arr));
+    console.log(credentials())
 }
 
-if(all === "nine"){
-const f = () => {
-    const usern = (message) => prompt(message);
-    const words = usern("Enter words").split(" ");
-    const needlessWord = usern("Enter needless word").split(" ");
-    const transformedWord = words.filter(word => !needlessWord.includes(word.toLowerCase()));
-    const end = transformedWord.join(" ");
-    return end
-}
-console.log(f());
+{
+    const user = prompt("Your word through: ")
+    const result = (text) => text.split("\\n").join("\n")
+    console.log(result(user))
 }
 
-if(all === "ten"){
-const a = (cai) => {
-    fetch('https://open.er-api.com/v6/latest/USD')
-        .then(res => res.json())
-        .then(data => {
-            const rates = data["rates"];
-            const currencies = Object.keys(rates);
-            let tableHeader = [["aaaa", ...currencies]];
-            let tableData = "";
+{
+    const user = prompt("How old are you?")
+    const promptOR = (user) => +user || alert("ERROR")
+    const result = 2024 - promptOR(user)
+    console.log(`Your year of birth ${result}`)
+}
 
-            for (const rate in rates) {
-                tableData += `<tr><td>${rate}</td>`;
-                for(const currency of currencies){
-                    tableData+= `<td>${rates[rate] / rates[currency]}</td>`;
-                }
-                tableData += "</tr>";
+{
+    const inputLogin = prompt()
+    const inputPassword = prompt()
+    const loginAndPassword = ((inputLogin, inputPassword) =>{
+        const login = "admin"
+        const password = "qwerty"
+        if(inputLogin === login){
+            if(inputPassword === password){
+                alert("Welcome")
+            }else{
+                alert("Wrong password")
             }
-
-            cai(tableHeader, tableData);
-        });
-}
-}
-
-if(all === "eleven"){
-const table = (arr, data) => {
-    let str = "<table>";
-    for (const tr of arr) {
-        str += "<tr>";
-        for (const td of tr) {
-            str += `<td>${td}</td>`;
+        }else{
+            alert("Wrong login")
         }
-        str += "</tr>";
+    })(inputLogin, inputPassword)
+}
+
+{
+    const arr = [[0,0,0,0,0,0],[0,1,2,3,4,5],[0,2,4,6,8,10],[0,3,6,9,12,15],[0,4,8,12,16,20],[0,5,10,15,20,25]]
+    const forTable = (arr) =>{
+        let str = "<table border>"
+        for(const elements of arr){
+            str += "<tr>"
+            for(const element of elements){
+                str += `<td>${element}</td>`
+            }
+            str += "</tr>"
+        }
+        str += "</table>"
+        return str
     }
-    str += data;
-    str += "</table>";
-
-    document.write(str);
-}
-a(table);
+    document.write(forTable(arr))
 }
 
-if(all === "twelve"){
-const f = (car) => {
-let form = '<form>';
-Object.keys(car).forEach(key => {
-form += `<label>${key}: <input type="${key === 'in_production' ? 'checkbox' : 'text'}" value="${car[key]}"/></label>`;});
-form += '</form>';
-return form;
-}
-const car = {
-"Name": "chevrolet chevelle malibu",
-"Cylinders": 8,
-"Displacement": 307,
-"Horsepower": 130,
-"Weight_in_lbs": 3504,
-"Origin": "USA",
-"in_production": false
-};
-document.write(f(car));
+{
+    const user = prompt().split(", " && " ")
+    const errorWords = prompt().split(", " && " ")
+    const filterLexics = (user, errorWords) => user.filter(word => !errorWords.includes(word)).join(" ")
+    console.log(filterLexics(user,errorWords))
 }
 
-if(all === "thirteen"){
+{
+    const currencyTable = () => {
+        fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+         .then(data => {
+            const rate = Object.keys(data.rates)
+            const tableAll = [[" ", ...rate]]
+            for(const elements of rate){
+                tableRow = [elements]
+                    for(const element of rate){
+                        tableRow.push(elements === element? 1: (data.rates[elements]/data.rates[element]).toFixed(2))
+                    }
+                tableAll.push(tableRow)
+            }
+            document.write(forTable(tableAll))
+        })}
+    
+        const forTable = (arr) => {
+            let str = "<table border>"
+            for(const elements of arr){
+                str += `<tr>`
+                    for(const element of elements){
+                        str += `<td>${element}</td>`
+                    }
+                str += "</tr>"
+            }
+            str += "</table>"
+            return str
+        }
+        currencyTable()
+}
+
+{
+    const car = {
+        "Name":"chevrolet chevelle malibu",
+        "Cylinders":8,
+        "Displacement":307,
+        "Horsepower":130,
+        "Weight_in_lbs":3504,
+        "Origin":"USA",
+        "in_production": false
+  }
+
+  const forms = (obj) => {
+    let str = "<form>"
+        for(const element in obj){
+            str += `<label>${element}: <input type="${typeof obj[element] === "boolean"? "checkbox": "text"}" value="${obj[element]}"></label>`
+        }
+    str += "</form>"
+    return str
+  }
+  document.write(forms(car))
+}
+
+{
     var persons = [
         {name: "Ivan", age: 17},
-        {name: "Mary", age: 35},
-        {name: "Alexei", age: 73},
-        {name: "Jacob", age: 12},
+        {name: "Maria", age: 35},
+        {name: "Oleksiy", age: 73},
+        {name: "Yakiv", age: 12},
     ]
     
-    const all = (arr, sortBy,ascending = true) => {
-        const copy = [...arr];
-        if (sortBy === "name") {
-            return copy.sort((a, b) => {
-                if (a.name < b.name) {
-                    return -1;
-                }
-            });
-        } else if (sortBy === "age") {
-            return copy.sort((a, b) => {return ascending ? a.age - b.age : b.age - a.age;});
+    const sort = (arr, sortBy, ascending = true) =>{
+        const copy = [...arr]
+        if(sortBy === "name"){
+            return copy.sort((a,b) => ascending? 1: -1)
+        }else if(sortBy === "age"){
+            return copy.sort((a,b) => ascending? a.age - b.age: b.age - a.age)
         }
-    };
+    }
     
-    
-    console.log(all(persons, "name"));
-    console.log(all(persons, "age", false));
+    console.log(sort(persons, "name", false))
+    console.log(sort(persons, "age"))
 }
+   
+const persons = [
+    {
+        name: 'Maria',
+        fatherName: 'Ivanovna',
+        surname: 'Ivanova',
+        sex: 'female'
+    },
+    {
+        name: 'Nikolay',
+        fatherName: 'Ivanovich',
+        surname: 'Ivanov',
+        age: 15
+    },
+    {
+        name: 'Peter',
+        fatherName: 'Ivanovich',
+        surname: 'Ivanov',
+        married: true
+    }
+]
 
-if(all === "fourteen"){
-const car = {
-    "Name": "chevrolet chevelle malibu",
-    "Cylinders": 8,
-    "Displacement": 307,
-    "Horsepower": 130,
-    "Weight_in_lbs": 3504,
-    "Origin": "USA",
-    "in_production": false
-  };
-  const table = (arr, sortBy, sortOrder) => {
-      const sortedArray = [...arr];
-      sortedArray.sort((a, b) => {
-          const aValue = typeof a[sortBy] === 'string' ? a[sortBy].toLowerCase() : a[sortBy];
-          const bValue = typeof b[sortBy] === 'string' ? b[sortBy].toLowerCase() : b[sortBy];
-  
-          if (sortOrder === 'asc') {
-              return aValue > bValue ? 1 : -1;
-          } else {
-              return aValue < bValue ? 1 : -1;
-          }
-      });
-      let str = "<table>";
-      for (const obj of sortedArray) {
-          str += "<tr>";
-          for (const key in obj) {
-              str += `<td>${obj[key]}</td>`;
-          }
-          str += "</tr>";
-      }
-      str += "</table>";
-      document.write(str);
-  };
+const table = (arr, sortBy, sortOrder = true) => {
+const copy = [...arr]
 
-  table([car, car, car], 'Name', 'asc');
+copy.sort((a, b) => {
+    if (a[sortBy] > b[sortBy]) return sortOrder ? 1 : -1;
+    if (a[sortBy] < b[sortBy]) return sortOrder ? -1 : 1;
+    return 0;
+});
+
+const table = () => {
+    const columns = []
+        for(const elements of copy){
+            for(const element in elements){
+                if(!columns.includes(element)){
+                    columns.push(element)
+                }
+            }
+        }
+
+    let str = "<table><tr>"
+    for(const result of columns){
+        str += `<td>${result}</td>`
+    }
+    str += "</tr>"
+    for(const result of copy){
+        str += "<tr>"
+        for(const colum of columns){
+            str += `<td>${result[colum] === undefined? "": result[colum]}</td>`
+        }
+        str += "</tr>"
+    }
+    str += "</table>"
+    return str
 }
-
-if(all === "fifteen"){
-const a = prompt();
-const b = prompt();
-
-const f = (a,b) =>{
-    const Zag_km = a * b
-    return Zag_km
+return table()
 }
-
-console.log(f(a,b))
-}
-  
-  
+document.write(table(persons,"name"))
