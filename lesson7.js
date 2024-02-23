@@ -222,3 +222,46 @@ const table = () => {
 return table()
 }
 document.write(table(persons,"name"))
+
+{
+    const firstNumber = document.createElement("input")
+    const secondNumber = document.createElement("input")
+    const divisionResult = document.createElement("div")
+    firstNumber.type = "number"
+    secondNumber.type = "number"
+    document.body.append(firstNumber,secondNumber,divisionResult)
+
+    const calcResult = () => {
+        divisionResult.innerText = Math.floor(+firstNumber.value/+secondNumber.value)
+    }
+    firstNumber.oninput = secondNumber.oninput = calcResult
+}
+
+{
+    const km = prompt("Enter kilometers:"); 
+    const days = prompt("Enter number of days:"); 
+    const calculation = (km, days) => {
+        if (!isNaN(km) && !isNaN(days)) {
+            const result = km * days;
+            console.log("Result:", result);
+        }else {
+            console.log("Invalid input. Please enter valid numbers.");
+        }
+    }
+    calculation(km,days)
+}
+
+{
+    const km = document.createElement("input")
+    const days = document.createElement("input")
+    const divisionResult = document.createElement("div")
+    km.type = "number"
+    days.type = "number"
+    document.body.append(km,days,divisionResult)
+
+    const calculation = () => {
+        divisionResult.innerText = km.value * days.value
+    }
+    km.addEventListener("input", calculation)
+    days.addEventListener("input", calculation)
+}
