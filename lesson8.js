@@ -1,204 +1,157 @@
-let all = prompt()
-if(all === "blocks"){
-let a = 10
 {
-    let b = 20
+    let a = 10
     {
-        let c = 30
-        // What will be the values of the variables here a, b, c, d
-        // here a = 10, b = 20, c = 30, d = nothing
-        b++
-        a *= 10
-    }
-    {
-        let c = 50
-        // What will be the values of the variables here a, b, c, d
-        // here a = 100, b = 21, c = 50, d = nothing
-        b += 500
-    }
-    {
-        const a = 100500
-        const d = "value"
-        // What will be the values of the variables here a, b, c, d
-        // here a = 100500, b = 521, c = nothing, d = "value"
+        let b = 20
         {
-            let a = -50
-            b     = 1000
-            // What will be the values of the variables here a, b, c, d
-            // here a = -50, b = 1000, c = nothing, d = "value"
+            let c = 30
+            b++
+            a *= 10
+            //a = 100,b = 21,c = 30,d = undefined
         }
-        // What will be the values of the variables here a, b, c, d
-        // here a = 100500, b = 1000, c = nothing, d = "value"
+        {
+            let c = 50
+            b += 500
+            //a = 100, b = 521,c = 50,d = undefined
+        }
+        {
+            const a = 100500
+            const d = "value"
+            //a = 100500, b = 521,c = undefined,d = "value"
+            {
+                let a = -50
+                b     = 1000
+                //a = -50, b = 1000,c = undefined,d = "value"
+            }
+            //a = 100500, b = 1000,c = undefined,d = "value"
+        }
+        //a = 10, b = 1000,c = undefined,d = undefined
     }
-    // What will be the values of the variables here a, b, c, d
-    // here a = 100, b = 1000, c = nothing, d = nothing
-}
-// What will be the values of the variables here a, b, c, d
-// here a = 100, b = nothing, c = nothing, d = nothing
+    //a = 10, b = undefined,c = undefined,d = undefined    
 }
 
-if(all === "comparison if"){
-var age = + prompt ("How old are you?");
-if (age < 0) 
-    alert("Haven't you been born yet?");
-else if (age <= 18) 
-    alert("Schoolboy");
-else if (age <= 30)
-    alert("Youth");
-else if (age <= 45)
-    alert("Maturity");
-else if (age <= 60)
-    alert("Sunset");
-else if (age >= 60) 
-    alert("How is the pension?");
-else 
-    alert("Or a cyborg, or KERNESS");
+{
+    var age = +prompt("How old are you?");
+    if (age < 0) alert("Not born yet");
+    else if (age <= 18) alert("Schoolkid");
+    else if (age <= 30) alert("Youth");
+    else if (age <= 45) alert("Maturity");
+    else if (age <= 60) alert("Sunset");
+    else if (age >= 60) alert("How's retirement?");
+    else alert("Are you a cyborg or KERNESS?");
 }
 
-if(all === "switch: sizes"){
-const size = prompt("Enter clothing size Italian:");
-switch (size) {
-    case "38":
-        alert("American size - S");
-        break;
-    case "40":
-        alert("American size - M");
-        break;
-    case "44":
-        alert("American size - L");
-        break;
-    case "48":
-        alert("American size - XL");
-        break;
-    case "52":
-        alert("American size - XXL");
-        break;
-    default:
-        alert('There is no such thing');
-}
-}
-
-if(all === "switch: if"){
-let color = prompt("Enter a color","");
-if (color === "red"){
-     document.write("<div style='background-color: red;'>red</div>");
-     document.write("<div style='background-color: black; color: white;'>black</div>");
-}else if (color === "black"){
-     document.write("<div style='background-color: black; color: white;'>black</div>");
-}
-else if (color === "blue"){
-     document.write("<div style='background-color: blue;'>blue</div>");
-     document.write("<div style='background-color: green;'>green</div>");
-}
-else if (color === "green"){
-     document.write("<div style='background-color: green;'>green</div>");
-}
-else {
-     document.write("<div style='background-color: gray;'>I do not understand</div>");
-}
-}
-
-if(all === "noswitch"){
-const noSwitch = (key, cases, defaultKey='default') => {
-    if(cases[key]){
-        cases[key]()
-    }else{
-        cases[defaultKey]()
+{
+    const size = +prompt("Enter your clothing size")
+    switch (size){
+        case 38: alert("S"); break;
+        case 40: alert("M"); break;
+        case 44: alert("L"); break;
+        case 48: alert("XL"); break;
+        case 52: alert("XXL"); break;
+        default: alert("This size does not exist");
     }
 }
-const drink = prompt("What do you like to drink?");
-noSwitch(drink, {
-    water: () => console.log('The healthiest choice!'),
-    tea: function () {
-        console.log("Tasty and useful thing. Don't overdo it with sugar");
-    },
-    "beer": () => console.log('Good in summer, but in moderation'),
-    whiskey: function () {
-        console.log("But you, father, are an esthete! Don't forget the ice and the cigar");
-    },
-    default: () => console.log("that I didn't understand"),
-}) ;
+
+{
+    const color = prompt("Enter a color")
+        if(color === "red"){
+            document.write("<div style='background-color: red;'>red</div>");
+            document.write("<div style='background-color: black; color: white;'>black</div>");
+        }else if(color === "black"){
+            document.write("<div style='background-color: black; color: white;'>black</div>");
+        }else if(color === "blue"){
+            document.write("<div style='background-color: blue;'>blue</div>");
+            document.write("<div style='background-color: green;'>green</div>");
+        }else if(color === "green"){
+            document.write("<div style='background-color: green;'>green</div>");
+        }else{
+            document.write("<div style='background-color: gray;'>I didn't get it</div>");
+        }
 }
 
-if(all === "closure calc"){
-fetch('https://open.er-api.com/v6/latest/USD')
-    .then(res => res.json())
+{
+    const noSwitch = (key, cases, defaultKey='default') => {
+        return cases[key]? cases[key](): cases[defaultKey]()
+    }
+    const drink = prompt("What do you like to drink?");
+    noSwitch(drink, {
+        water: () => console.log('Healthiest choice!'),
+        tea: () => console.log('Tasty and healthy option. Don\'t overdo it with sugar.'),
+        beer: () => console.log('Great for summer, and in moderation.'),
+        whisky: function() { console.log('You, my friend, have taste! Don\'t forget the ice and cigar.') },
+        default: () => console.log('Sorry, I didn\'t get that.')
+    })
+}
+
+{
+    fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
     .then(data => {
-        let buttonContainer = document.getElementById('buttonContainer');
-        for (let currency in data.rates) {
-            let currencyButton = document.createElement('button');
-            currencyButton.innerText = currency;
-            currencyButton.onclick = () => {
-                let amount = prompt(`Enter the amount in ${currency}:`);
-
-                let usdAmount = amount * data.rates[currency];
-
-                alert(`${amount} ${currency} is approximately ${usdAmount.toFixed(2)} USD`);
-            };
-            buttonContainer.append(currencyButton);
+        for(const element in data.rates){
+            const button = document.createElement("button")
+            button.innerText = element
+            document.body.append(button)
+            button.onclick = () => {
+                const amount = +prompt("Enter the amount")
+                const result = amount * data.rates[element]
+                console.log(result.toFixed(2))
+            }
         }
     })
 }
 
-if(all === "closure calc 2"){
-fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
-     .then(data => {
-           let form = document.getElementById("from")
-           let to = document.getElementById("to")
-           const amount = document.getElementById('amount');
-           for(let a in data.rates){
-            let option = document.createElement("option");
-            option.text = a;
-            form.append(option);
+{
+    fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+    .then(data => {
+        const selectOne = document.createElement("select")
+        const selectTwo = document.createElement("select")
+        const rate = document.createElement("div")
+        const amount = document.createElement("input")
+        const result = document.createElement("div")
+        amount.type = "number"
+        for(const currency in data.rates){
+            const optionOne = document.createElement("option")
+            optionOne.innerText = currency
+            optionOne.value = data.rates[currency]
+            selectOne.append(optionOne)
 
-            let optionto = document.createElement("option");
-            optionto.text = a;
-           to.append(optionto);
-           }
+            const optionTwo = document.createElement("option")
+            optionTwo.innerText = currency
+            optionTwo.value = data.rates[currency]
+            selectTwo.append(optionTwo)
+        }
 
-           const updateConversion = () => {
-            const fromCurrency = from.value;
-            const toCurrency = to.value;
-            const conversionRate = data.rates[toCurrency] / data.rates[fromCurrency];
-
-            document.getElementById('rate').innerHTML = `Exchange rate: 1 ${fromCurrency} = ${conversionRate} ${toCurrency}`;
-
-            const resultDiv = document.getElementById('result');
-            const amountValue = amount.value;
-            const resultAmount = amountValue * conversionRate;
-            resultDiv.innerHTML = `Result: ${resultAmount.toFixed(2)} ${toCurrency}`;
-        };
-
-        from.addEventListener('change', updateConversion);
-        to.addEventListener('change', updateConversion);
-        amount.addEventListener('input', updateConversion);
-    });
+        const update = () => {
+            let ent = +selectOne.value / +selectTwo.value
+            rate.innerText = ent.toFixed()
+            result.innerText = (ent * amount.value).toFixed()
+        }
+        selectOne.onchange = selectTwo.onchange = update
+        amount.oninput = update
+        document.body.append(selectOne, selectTwo, rate, amount, result)
+    })
 }
 
-if(all === "countries and cities"){
-fetch('https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/master/countries.min.json')
-  .then(res => res.json())
-  .then(data => {
-    const countriesSelect = document.getElementById('countries');
-    for(let a in data){
-        let option = document.createElement("option")
-        option.text = a
-        countriesSelect.append(option)
-    }
-    countriesSelect.addEventListener('change', (event) => {
-        const selectedCountry = event.target.value;
-        const citiesSelect = document.getElementById('cities');
-      
-        citiesSelect.innerHTML = '';
-      
-        if (selectedCountry) {
-          const cities = data[selectedCountry];
-          for (let i = 0; i < cities.length; i++) {
-            const city = cities[i];
-            const option = new Option(city, city);
-            citiesSelect.append(option);
-          }
-        }
-    });
-  })
+{
+    fetch('https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/master/countries.min.json').then(res => res.json())
+    .then(data => {
+       const selectOne = document.createElement("select")
+       const selectTwo = document.createElement("select")
+       for(const element in data){
+           const option = document.createElement("option")
+           option.innerHTML = element
+           selectOne.append(option)
+       }
+       
+       const сity = () => {
+           selectTwo.innerText = ""
+           for(const element of data[selectOne.value]){
+               const option = document.createElement("option")
+               option.innerText = element
+               selectTwo.append(option)
+           }
+       }
+       сity()
+       selectOne.onchange = сity
+       document.body.append(selectOne, selectTwo)
+    })
 }
