@@ -1,119 +1,150 @@
-// while(!confirm()){}
+{
+while(!confirm()){}
+}
 
-// let arr = []
-// for(;;){
-//     let newArr = prompt()
-//     if(newArr === null || newArr.trim() === ''){
-//         break;
-//     }
-//     arr.push(newArr)
-// }
-// console.log(arr)
+{
+const arr = []
+for(;;){
+    const user = prompt()
+    if(user === null || user.trim() === ''){
+        break;
+    }else{
+        arr.push(user)
+    }
+}
+console.log(arr)
+}
 
+{
+const arr = []
+let index = 0
+for(;;){
+    const user = prompt()
+    if(user === null || user.trim() === ''){
+        break;
+    }else{
+        arr[index] = user
+    }
+    index ++ 
+}
+console.log(arr)
+}
 
+{
+let index = 0
+for(;;index++){
+    if(Math.random() > 0.9){
+        break;
+    }
+}
+console.log(index)
+}
 
-// let arr = []
-// let index = 0
-// for(;;){
-//     let newArr = prompt()
-//     if(newArr === null || newArr.trim() === ''){
-//         break;
-//     }
-//     arr[index] = newArr
-//     index++
-// }
-// console.log(arr)
+{
+while(prompt() === null){}
+}
 
+{
+const user = +prompt()
+let sum = 0
+for(let i = 1;i < user;i += 3){
+    sum += i
+}
+console.log(sum)
+}
 
+{
+const user = +prompt()
+let str = ""
+for(let i = 0; i <= user; i++){
+    if(i % 2 === 0){
+        str += "#"
+    }else{
+        str += "."
+    }
+}
+console.log(str)
+}
 
-// let mat
-// let iterations = 0
-// for(;;){
-//     math = Math.random()
-//     iterations++
-//     if(math > 0.9){
-//         break;
-//     }
-// }
-// alert(`${iterations}, ${math.toFixed(4)}`)
+{
+let str = ''
+for(let i = 0; i < 10; i++){
+    for(let j = 0; j < 10; j++){
+    str += j
+    }
+    str += "\n"
+}
+console.log(str)
+}
 
+{
+const a = +prompt()
+const b = +prompt()
+let str = ''
+for(let i = 0; i < a; i++){
+    for(let j = 0; j < b; j++){
+        if(i % 2 === 0){
+            str += ".#"
+        }else{
+            str += "#."
+        }
+    }
+    str += "\n"
+}
+console.log(str)
+}
 
+{
+const user = +prompt()
+const arr = []
+for(let i = 0; i <= user; i++){
+    arr.push(Math.pow(i,3))
+}
+console.log(arr)
+}
 
-// for(;;){
-//     let user = prompt()
-//     if (user === null) {
-//     }else{
-//         break;
-//     }
-// }
+{
+const arr = []
+for(let i = 0; i <= 5; i++){
+    arr[i] = []
+    for(let j = 0; j <= 5; j++){
+        arr[i].push(i * j)
+    }
+}
+console.log(arr)
+}
 
-
-
-// let N = +prompt("Enter number N:");
-// let sum = 0;
-// for (let i = 0; i < N; i += 3) {
-//     sum += i;
-// }
-// console.log(sum);
-
-
-
-// let N = prompt()
-// let sum = ''
-// for(let i = ''; i < N; i++){
-//     sum += "#"
-// }
-// console.log(sum)
-
-
-
-// let result = "";
-// for (let i = 0; i < 10; i++) {
-//     for (let j = 0; j < 10; j++) {
-//         result += j;
-//     }
-//     result += "\n";
-// }
-// console.log(result);
-
-
-
-// let sum = ''
-// for(let i = 0; i<10; i++){
-//     for(let j = 0; j<10; j++){
-//         if(( i + j ) % 2===0){
-//             sum += "."
-//         }else{
-//             sum += "#"
-//         }
-//     }
-//     sum += "\n"
-// }
-// console.log(sum)
-
-
-
-// let N = prompt()
-// let resultArray = [];
-// for (let i = 0; i < N; i++) {
-//     resultArray.push(i);
-// }
-// console.log(resultArray);
-
-
-
-// let one = 10
-// let two = 10
-// let result = []
-// for(i=0; i<one; i++){
-// result[i]=[]
-//     for(j=0;j<two;j++){
-//         result[i][j] = i * j
-//     }
-// }
-// console.log(result[2][3])
-
-
+{
+    const readArrayOfObjects = () => {
+        const arr = []
+        while (true) {
+            let obj = {}
+            let key = prompt("Введіть ключ")
+            if(key === null){
+                let choice = confirm("Хочете продовжити?")
+                if(!choice){
+                    break;
+                }else{
+                    continue;
+                }
+            }
+            while(true){
+                let value = prompt("Введіть значення")
+                if(value === null){
+                    break;
+                }
+                obj[key] = value
+                key = prompt("Введіть ключ")
+                if(key === null){
+                    break;
+                }
+            }
+            arr.push(obj)
+        }
+        return arr
+    }
+    console.log(readArrayOfObjects())
+}
 
 
 
@@ -145,36 +176,7 @@
 // console.log(result);
 
 
-
-
-
-
-
-// function readArrayOfObjects() {
-//     const objectData = {};
-//     for (;;) {
-//         for (let key = prompt('Enter the key:'); key !== null; key = prompt('Enter another key:')) {
-//             const value = prompt(`Enter a value for the key '${key}':`);
-//             objectData[key] = value;
-//         }
-//         if (!confirm('Do you want to enter another object?')) {
-//             break;
-//         }
-//     }
-//     return objectData
-// }
-// const objectData = readArrayOfObjects();
-// console.log(objectData);
-
-
-
-
-
-
-// const resultArray = readArrayOfObjects();
-
-// console.log(resultArray);
-
+// Створення таблиці та елементів
 // const table = document.createElement('table');
 // const tbody = document.createElement('tbody');
 
@@ -263,3 +265,50 @@
 //     cells[columnIndex - 1].style.backgroundColor = backgroundColor;
 //   }
 // }
+
+
+// let size = 5;
+// let result = '';
+// for (let i = 0; i < size; i++) {
+//     let a = "";
+//     let b = "";
+//     for (let k = 0; k < size - i - 1; k++) {
+//         a += ".";
+//     }
+//     for (let j = 0; j < 2 * i + 1; j++) {
+//         b += "#";
+//     }
+//     result += a + b + a + "\n";
+// }
+// console.log(result)
+
+
+
+
+
+// const table = document.createElement('table');
+//   const tbody = document.createElement('tbody');
+
+//   for (let i = 1; i <= 9; i++) {
+//     const row = document.createElement('tr');
+
+//     for (let j = 1; j <= 9; j++) {
+//       const cell = document.createElement('td');
+//       cell.innerText = i * j;
+
+//       cell.addEventListener('mouseover', function () {
+//         cell.style.backgroundColor = 'lightblue';
+//       });
+
+//       cell.addEventListener('mouseout', function () {
+//         cell.style.backgroundColor = '';
+//       });
+
+//       row.appendChild(cell);
+//     }
+
+//     tbody.appendChild(row);
+//   }
+
+//   table.appendChild(tbody);
+//   document.getElementById('multiplicationTable').appendChild(table);
