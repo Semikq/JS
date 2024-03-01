@@ -31,13 +31,13 @@
 
 {
     var age = +prompt("How old are you?");
-    if (age < 0) alert("Not born yet");
-    else if (age <= 18) alert("Schoolkid");
-    else if (age <= 30) alert("Youth");
-    else if (age <= 45) alert("Maturity");
-    else if (age <= 60) alert("Sunset");
-    else if (age >= 60) alert("How's retirement?");
-    else alert("Are you a cyborg or KERNESS?");
+    if(age <= 0 || isNaN(age)) alert("Error")
+    else if (age <= 18) alert("schoolchild")
+    else if (age <= 30) alert("youth")
+    else if (age <= 45) alert("maturity")
+    else if (age <= 60) alert("sunset years")
+    else if (age >= 60 && age <= 100) alert("how's retirement?")
+    else if(age >= 100) alert("Are you a cyborg or KERNESS?")
 }
 
 {
@@ -53,7 +53,7 @@
 }
 
 {
-    const color = prompt("Enter a color")
+    const color = prompt("Enter color").toLowerCase();
         if(color === "red"){
             document.write("<div style='background-color: red;'>red</div>");
             document.write("<div style='background-color: black; color: white;'>black</div>");
@@ -65,13 +65,13 @@
         }else if(color === "green"){
             document.write("<div style='background-color: green;'>green</div>");
         }else{
-            document.write("<div style='background-color: gray;'>I didn't get it</div>");
+            document.write("<div style='background-color: gray;'>I don't understand</div>");
         }
 }
 
 {
     const noSwitch = (key, cases, defaultKey='default') => {
-        return cases[key]? cases[key](): cases[defaultKey]()
+        cases[key]? cases[key](): cases[defaultKey]()
     }
     const drink = prompt("What do you like to drink?");
     noSwitch(drink, {
@@ -89,46 +89,44 @@
         for(const element in data.rates){
             const button = document.createElement("button")
             button.innerText = element
-            document.body.append(button)
             button.onclick = () => {
-                const amount = +prompt("Enter the amount")
-                const result = amount * data.rates[element]
-                console.log(result.toFixed(2))
+                console.log((+prompt() * data.rates[element]).toFixed(2))
             }
+            document.body.append(button)
         }
-    })
+       })
 }
 
 {
     fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
     .then(data => {
-        const selectOne = document.createElement("select")
-        const selectTwo = document.createElement("select")
+        const from = document.createElement("select")
+        const to = document.createElement("select")
         const rate = document.createElement("div")
-        const amount = document.createElement("input")
+        const input = document.createElement("input")
         const result = document.createElement("div")
-        amount.type = "number"
-        for(const currency in data.rates){
+        for(const element in data.rates){
             const optionOne = document.createElement("option")
-            optionOne.innerText = currency
-            optionOne.value = data.rates[currency]
-            selectOne.append(optionOne)
-
             const optionTwo = document.createElement("option")
-            optionTwo.innerText = currency
-            optionTwo.value = data.rates[currency]
-            selectTwo.append(optionTwo)
+            optionOne.innerText = element
+            optionOne.value = data.rates[element]
+            optionTwo.innerText = element
+            optionTwo.value = data.rates[element]
+            from.append(optionOne)
+            to.append(optionTwo)
         }
 
         const update = () => {
-            let ent = +selectOne.value / +selectTwo.value
-            rate.innerText = ent.toFixed()
-            result.innerText = (ent * amount.value).toFixed()
+            rate.innerText = (from.value / to.value).toFixed(2)
+            result.innerText = ((from.value / to.value) * input.value).toFixed(2)
         }
-        selectOne.onchange = selectTwo.onchange = update
-        amount.oninput = update
-        document.body.append(selectOne, selectTwo, rate, amount, result)
-    })
+
+        from.addEventListener("change", update)
+        to.addEventListener("change", update)
+        input.addEventListener("input", update)
+
+        document.body.append(from, to, rate, input, result)
+        })
 }
 
 {
