@@ -115,200 +115,113 @@ console.log(arr)
 }
 
 {
-    const readArrayOfObjects = () => {
+    const readArrayOfObjects = (() => {
         const arr = []
-        while (true) {
-            let obj = {}
-            let key = prompt("Введіть ключ")
+        let obj = {}
+        while(true){
+            const key = prompt("Enter key")
             if(key === null){
-                let choice = confirm("Хочете продовжити?")
-                if(!choice){
-                    break;
+                if(confirm("Create a new object or exit?")){
+                    arr.push(obj)
+                    obj = {}
+                    continue
                 }else{
+                    arr.push(obj)
+                    break
+                }
+            }
+            const value = prompt("Enter value")
+            if(value === null){
+                if(confirm("Create a new object or exit?")){
+                    arr.push(obj)
+                    obj = {}
                     continue;
+                }else{
+                    arr.push(obj)
+                    break
                 }
             }
-            while(true){
-                let value = prompt("Введіть значення")
-                if(value === null){
-                    break;
-                }
-                obj[key] = value
-                key = prompt("Введіть ключ")
-                if(key === null){
-                    break;
-                }
-            }
-            arr.push(obj)
+            obj[key] = value
         }
-        return arr
-    }
-    console.log(readArrayOfObjects())
+        console.log(arr)
+    })()
 }
 
+{
+let size = prompt()
+let result = '';
+for (let i = 0; i < size; i++) {
+    let a = "";
+    let b = "";
+    for (let k = 0; k < size - i - 1; k++) {
+        a += ".";
+    }
+    for (let j = 0; j < 2 * i + 1; j++) {
+        b += "#";
+    }
+    result += a + b + a + "\n";
+}
 
+for (let i = size - 2; i >= 0; i--) {
+    let a = "";
+    let b = "";
+    for (let k = 0; k < size - i - 1; k++) {
+        a += ".";
+    }
+    for (let j = 0; j < 2 * i + 1; j++) {
+        b += "#";
+    }
+    result += a + b + a + "\n";
+}
+console.log(result);
+}
 
+{
+const table = document.createElement("table")
+for(let i = 0; i < 9; i++){
+    const tr = document.createElement("tr")
+    for(let j = 0; j < 9; j++){
+        const td = document.createElement('td')
+        if(i === 0 && j === 0){
+            td.innerText = "0"
+        }else if(i === 0){
+            td.innerText = j
+        }else if(j === 0){
+            td.innerText = i
+        }else{
+            td.innerText = i * j
+        }
+        tr.append(td)
+    }
+    table.append(tr)
+}
+document.body.append(table)
+}
 
-// let size = 5;
-// let result = '';
-// for (let i = 0; i < size; i++) {
-//     let a = "";
-//     let b = "";
-//     for (let k = 0; k < size - i - 1; k++) {
-//         a += ".";
-//     }
-//     for (let j = 0; j < 2 * i + 1; j++) {
-//         b += "#";
-//     }
-//     result += a + b + a + "\n";
-// }
-// for (let i = size - 2; i >= 0; i--) {
-//     let a = "";
-//     let b = "";
-//     for (let k = 0; k < size - i - 1; k++) {
-//         a += ".";
-//     }
-//     for (let j = 0; j < 2 * i + 1; j++) {
-//         b += "#";
-//     }
-//     result += a + b + a + '\n';
-// }
-// console.log(result);
-
-
-// Створення таблиці та елементів
-// const table = document.createElement('table');
-// const tbody = document.createElement('tbody');
-
-// for (let i = 1; i <= 9; i++) {
-//   const row = document.createElement('tr');
-
-//   for (let j = 1; j <= 9; j++) {
-//     const cell = document.createElement('td');
-//     cell.innerText = i * j;
-//     row.appendChild(cell);
-//   }
-
-//   tbody.appendChild(row);
-// }
-
-// table.appendChild(tbody);
-
-// document.getElementById('multiplicationTable').appendChild(table);
-
-// const table = document.createElement('table');
-//   const tbody = document.createElement('tbody');
-
-//   for (let i = 1; i <= 9; i++) {
-//     const row = document.createElement('tr');
-
-//     for (let j = 1; j <= 9; j++) {
-//       const cell = document.createElement('td');
-//       cell.innerText = i * j;
-
-//       cell.addEventListener('mouseover', function () {
-//         cell.style.backgroundColor = 'lightblue';
-//       });
-
-//       cell.addEventListener('mouseout', function () {
-//         cell.style.backgroundColor = '';
-//       });
-
-//       row.appendChild(cell);
-//     }
-
-//     tbody.appendChild(row);
-//   }
-
-//   table.appendChild(tbody);
-//   document.getElementById('multiplicationTable').appendChild(table);
-
-
-
-
-
-
-
-// const table = document.createElement('table');
-// const tbody = document.createElement('tbody');
-
-// for (let i = 1; i <= 9; i++) {
-//   const row = document.createElement('tr');
-
-//   for (let j = 1; j <= 9; j++) {
-//     const cell = document.createElement('td');
-//     cell.innerText = i * j;
-
-//     cell.addEventListener('mouseover', function () {
-//       row.style.backgroundColor = 'lightblue';
-//       setColumnHighlight(j, 'lightcoral');
-//     });
-
-//     cell.addEventListener('mouseout', function () {
-//       row.style.backgroundColor = '';
-//       setColumnHighlight(j, '');
-//     });
-
-//     row.appendChild(cell);
-//   }
-
-//   tbody.appendChild(row);
-// }
-
-// table.appendChild(tbody);
-// document.getElementById('multiplicationTable').appendChild(table);
-
-// function setColumnHighlight(columnIndex, backgroundColor) {
-//   const rows = tbody.getElementsByTagName('tr');
-//   for (let i = 0; i < rows.length; i++) {
-//     const cells = rows[i].getElementsByTagName('td');
-//     cells[columnIndex - 1].style.backgroundColor = backgroundColor;
-//   }
-// }
-
-
-// let size = 5;
-// let result = '';
-// for (let i = 0; i < size; i++) {
-//     let a = "";
-//     let b = "";
-//     for (let k = 0; k < size - i - 1; k++) {
-//         a += ".";
-//     }
-//     for (let j = 0; j < 2 * i + 1; j++) {
-//         b += "#";
-//     }
-//     result += a + b + a + "\n";
-// }
-// console.log(result)
-
-
-
-
-
-// const table = document.createElement('table');
-//   const tbody = document.createElement('tbody');
-
-//   for (let i = 1; i <= 9; i++) {
-//     const row = document.createElement('tr');
-
-//     for (let j = 1; j <= 9; j++) {
-//       const cell = document.createElement('td');
-//       cell.innerText = i * j;
-
-//       cell.addEventListener('mouseover', function () {
-//         cell.style.backgroundColor = 'lightblue';
-//       });
-
-//       cell.addEventListener('mouseout', function () {
-//         cell.style.backgroundColor = '';
-//       });
-
-//       row.appendChild(cell);
-//     }
-
-//     tbody.appendChild(row);
-//   }
-
-//   table.appendChild(tbody);
-//   document.getElementById('multiplicationTable').appendChild(table);
+{
+const table = document.createElement("table")
+for(let i = 0; i < 9; i++){
+    const tr = document.createElement("tr")
+    for(let j = 0; j < 9; j++){
+        const td = document.createElement('td')
+        if(i === 0 && j === 0){
+            td.innerText = "0"
+        }else if(i === 0){
+            td.innerText = j
+        }else if(j === 0){
+            td.innerText = i
+        }else{
+            td.innerText = i * j
+        }
+        tr.append(td)
+    }
+        tr.addEventListener("mouseover", function(){
+            tr.style.background = "red"
+        })
+        tr.addEventListener("mouseout", function(){
+            tr.style.background = ""
+        })
+    table.append(tr)
+}
+document.body.append(table)
+}
