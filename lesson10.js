@@ -1,60 +1,125 @@
-//Arrow to Functions
-function capitalize () {
-    const names = prompt("Name")
-    const surnames = prompt("Surname")
-    const fatherNames = prompt("FatherNames")
-    
-    const name =  names.charAt(0).toUpperCase() + names.slice(1).toLowerCase();
-    const surname = surnames.charAt(0).toUpperCase() + surnames.slice(1).toLowerCase();
-    const fatherName = fatherNames.charAt(0).toUpperCase() + fatherNames.slice(1).toLowerCase();
-    const fullName = `${name} ${surname} ${fatherName}`
-    return{name,surname,fatherName,fullName}
+{
+    function RGB(r = 0,g = 0,b = 0){
+        return `#${r.toString(16).padStart(2,"0")}${g.toString(16).padStart(2,"0")}${b.toString(16).padStart(2,"0")}`
     }
-    console.log(capitalize())
-
-alert("ATM")
-function course(usd){
-let rate = confirm("buy") || alert("Sell")
-if(rate === true){
-    rate = usd * 2
-    alert(rate)
+    console.log(RGB(122,255))
 }
-else{
-    rate = usd * 1.5
-    alert(rate)
+
+{
+    function clothes(size){
+        if(+size === 38){
+            alert("S")
+        }else if(+size === 40){
+            alert("M")
+        }else if(+size === 44){
+            alert("L")
+        }else if(+size === 48){
+            alert("XL")
+        }else if(+size === 52){
+            alert("XXL")
+        }else{
+            alert("This size does not exist")
+        }
+        }
+        console.log(clothes(52))
 }
-}
-course(prompt("Enter Dollars"))
 
-
-alert("Adding spaces")
-function text(user){const result = user.split("\\n ").join("\n");
-return result;};
-console.log(text(prompt()));
-
-
-function f(message){;
-const rik = message;
-const end = rik ? 2023 - rik : "No";
-return end
-}
-console.log(f(prompt()));
-
-
-const arr = [[0, 0, 0, 0, 0, 0],[0, 1, 2, 3, 4, 5],[0, 2, 4, 6, 8, 10],[0, 3, 6, 9, 12, 15],[0, 4, 8, 12, 16, 20],[0, 5, 10, 15, 20, 25]];
-function table (arr) {
-    let str = "<table>";
-    for(const tr of arr){
-        str += `<tr></tr>`;
-        for(const td of tr){
-            str+=`<td>${td}</td>`;
+{
+    const defaultLogin = "admin"
+    const defaultPassword = "qwerty"
+    function loginAndPassword(defaultLogin, defaultPassword){
+        while(true){
+            const login = prompt("Enter login")
+            if(login === defaultLogin){
+                while(true){
+                const password = prompt("Enter password")
+                if(password === defaultPassword){
+                    alert("Welcome")
+                    return
+                }else if(password === null){
+                if(confirm("Do you want to try again or not? PP")){
+                        continue;
+                    }else{
+                        return;
+                    }
+                }else{
+                    continue;
+                }
+            }
+            }else if(login === null){
+                if(confirm("Do you want to try again or not? LL")){
+                        continue;
+                    }else{
+                        break;
+                    }
+            }else{
+                continue;
+            }
         }
     }
-    str += "</table>";
-    return str;
+    console.log(loginAndPassword(defaultLogin, defaultPassword))
 }
-document.write(table(arr));
 
+{
+    function multiplicationTable(size) {
+        function generateTable(size) {
+            let arr = [];
+            if (Number(size) > 0) {
+                for (let line = 1; line <= size; line++) {
+                    let arr2 = [];
+                    for (let element = 1; element <= size; element++) {
+                        arr2.push(line * element);
+                    }
+                    arr.push(arr2);
+                }
+                return arr;
+            } else {
+                return null;
+            }
+        }
+    
+        function table(arr) {
+            if (arr !== null) {
+                let str = "<table>";
+                for (const elements of arr) {
+                    str += "<tr>";
+                    for (const element of elements) {
+                        str += `<td>${element}</td>`;
+                    }
+                    str += "</tr>";
+                }
+                str += "</table>";
+                return str;
+            } else {
+                return "";
+            }
+        }
+        
+        return table(generateTable(size));
+    }
+    document.write(multiplicationTable());
+}
+
+{
+    function ATM() {
+        const currencyTable = () => {
+            fetch('https://open.er-api.com/v6/latest/USD')
+                .then(res => res.json())
+                .then(data => {
+                    const currency = prompt("Enter the index of the currency you want to exchange from:").toUpperCase()
+                    const firstCurrency = prompt("Enter the index of the currency you want to exchange to:").toUpperCase()
+                    const money = +prompt("Enter the amount of money:")
+                    const course = data.rates[currency] / data.rates[firstCurrency]
+                    if (confirm("Buy or sell?")) {
+                        const result = money * course
+                        console.log("Result:", result.toFixed(2))
+                    } else {
+                        const result = money / course
+                        console.log("Result:", result.toFixed(2))
+                    }})}
+        currencyTable()}
+    ATM()
+}
 
 //createPerson
 function createPerson(name, surname){
