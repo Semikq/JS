@@ -127,11 +127,7 @@
             name,
             surname,
             getFullName(){
-                if(this.fatherName){
-                    return `${this.name} ${this.surname} ${this.fatherName}`
-                }else{
-                    return `${this.name} ${this.surname}`
-                }
+                return `${this.name} ${this.surname} ${this.fatherName || ""}`
             }
         }
     }
@@ -146,67 +142,78 @@
 
 {
     function createPersonClosure(name, surname){
-        let age = ''
-        let fatherName = ''
+        let age = 0
+        let fatherName = ""
+
         function getName(){
             return name
         }
+
         function getSurname(){
             return surname
         }
+
         function getFatherName(){
             return fatherName
         }
+
         function getAge(){
             return age
         }
+
         function getFullName(){
             return `${surname} ${name} ${fatherName}`
         }
 
+
         function setName(newName){
-            if(newName.slice(0,1).toUpperCase() === newName.slice(0,1) && newName.slice(1).toLowerCase() === newName.slice(1)){
+            if(typeof newName === "string" && newName.slice(0,1).toUpperCase() === newName.slice(0,1) && newName.slice(1).toLowerCase() === newName.slice(1)){
                 name = newName
                 return name
             }else{
                 return name
             }
         }
+
         function setSurname(newSurname){
-            if(newSurname.slice(0,1).toUpperCase() === newSurname.slice(0,1) && newSurname.slice(1).toLowerCase() === newSurname.slice(1)){
+            if(typeof news === "string" && newSurname.slice(0,1).toUpperCase() === newSurname.slice(0,1) && newSurname.slice(1).toLowerCase() === newSurname.slice(1)){
                 surname = newSurname
                 return surname
             }else{
                 return surname
             }
         }
+
         function setFatherName(newFatherName){
-            if(newFatherName.slice(0,1).toUpperCase() === newFatherName.slice(0,1) && newFatherName.slice(1).toLowerCase() === newFatherName.slice(1)){
+            if(typeof newFatherName === "string" && newFatherName.slice(0,1).toUpperCase() === newFatherName.slice(0,1) && newFatherName.slice(1).toLowerCase() === newFatherName.slice(1)){
                 fatherName = newFatherName
                 return fatherName
             }else{
                 return fatherName
             }
         }
+
         function setAge(newAge){
-            if(Number(newAge) && newAge >= 0 && newAge <= 100){
-                return age = newAge
+            if(typeof newAge === "number" && newAge >= 0 && newAge <= 100){
+                age = newAge
+                return age
             }else{
                 return age
             }
         }
+
         function setFullName(newFullName){
-            newFullName = newFullName.split(" ")
-            if(newFullName.length === 3){
-                surname = setSurname(newFullName[0])
-                name = setName(newFullName[1])
-                fatherName = setFatherName(newFullName[2])
+            let arr = newFullName.split(" ")
+            if(arr.length === 3){
+                surname = setSurname(arr[0])
+                name = setName(arr[1])
+                fatherName = setFatherName(arr[2])
                 return surname, name, fatherName
             }else{
                 return surname, name, fatherName
             }
         }
-        return {getName, getSurname, getFatherName, getAge, getFullName, setName, setSurname, setFatherName, setAge, setFullName}
+        return {getName, getSurname, getFatherName, getAge, getFullName, setName, setSurname, setAge, setFatherName, setFullName}
     }
 
     const a = createPersonClosure("Vasya", "Pupkin")
@@ -227,7 +234,7 @@
         age,
         getFullName(){
             if(this.fatherName){
-                return `${this.name} ${this.surname} ${this.fatherName}`
+                return `${this.name} ${this.surname} ${this.fatherName || ""}`
             }else{
                 return `${this.name} ${this.surname}`
             }
@@ -235,67 +242,77 @@
     }
 }
 
-    function createPersonClosureDestruct({name = '', surname = '', fatherName = '', age = 0}){
-        function getName(){
-            return name
-        }
-        function getSurname(){
-            return surname
-        }
-        function getFatherName(){
-            return fatherName
-        }
-        function getAge(){
-            return age
-        }
-        function getFullName(){
-            return `${surname} ${name} ${fatherName}`
-        }
+function createPersonClosureDestruct({name = '', surname = '', fatherName = '', age = 0}){
+    function getName(){
+          return name
+      }
 
-        function setName(newName){
-            if(newName.slice(0,1).toUpperCase() === newName.slice(0,1) && newName.slice(1).toLowerCase() === newName.slice(1)){
-                name = newName
-                return name
-            }else{
-                return name
-            }
-        }
-        function setSurname(newSurname){
-            if(newSurname.slice(0,1).toUpperCase() === newSurname.slice(0,1) && newSurname.slice(1).toLowerCase() === newSurname.slice(1)){
-                surname = newSurname
-                return surname
-            }else{
-                return surname
-            }
-        }
-        function setFatherName(newFatherName){
-            if(newFatherName.slice(0,1).toUpperCase() === newFatherName.slice(0,1) && newFatherName.slice(1).toLowerCase() === newFatherName.slice(1)){
-                fatherName = newFatherName
-                return fatherName
-            }else{
-                return fatherName
-            }
-        }
-        function setAge(newAge){
-            if(Number(newAge) && newAge >= 0 && newAge <= 100){
-                return age = newAge
-            }else{
-                return age
-            }
-        }
-        function setFullName(newFullName){
-            newFullName = newFullName.split(" ")
-            if(newFullName.length === 3){
-                surname = setSurname(newFullName[0])
-                name = setName(newFullName[1])
-                fatherName = setFatherName(newFullName[2])
-                return surname, name, fatherName
-            }else{
-                return surname, name, fatherName
-            }
-        }
-        return {getName, getSurname, getFatherName, getAge, getFullName, setName, setSurname, setFatherName, setAge, setFullName}
-    }
+      function getSurname(){
+          return surname
+      }
+
+      function getFatherName(){
+          return fatherName
+      }
+
+      function getAge(){
+          return age
+      }
+
+      function getFullName(){
+          return `${surname} ${name} ${fatherName}`
+      }
+
+
+      function setName(newName){
+          if(typeof newName === "string" && newName.slice(0,1).toUpperCase() === newName.slice(0,1) && newName.slice(1).toLowerCase() === newName.slice(1)){
+              name = newName
+              return name
+          }else{
+              return name
+          }
+      }
+
+      function setSurname(newSurname){
+          if(typeof news === "string" && newSurname.slice(0,1).toUpperCase() === newSurname.slice(0,1) && newSurname.slice(1).toLowerCase() === newSurname.slice(1)){
+              surname = newSurname
+              return surname
+          }else{
+              return surname
+          }
+      }
+
+      function setFatherName(newFatherName){
+          if(typeof newFatherName === "string" && newFatherName.slice(0,1).toUpperCase() === newFatherName.slice(0,1) && newFatherName.slice(1).toLowerCase() === newFatherName.slice(1)){
+              fatherName = newFatherName
+              return fatherName
+          }else{
+              return fatherName
+          }
+      }
+
+      function setAge(newAge){
+          if(typeof newAge === "number" && newAge >= 0 && newAge <= 100){
+              age = newAge
+              return age
+          }else{
+              return age
+          }
+      }
+
+      function setFullName(newFullName){
+          let arr = newFullName.split(" ")
+          if(arr.length === 3){
+              surname = setSurname(arr[0])
+              name = setName(arr[1])
+              fatherName = setFatherName(arr[2])
+              return surname, name, fatherName
+          }else{
+              return surname, name, fatherName
+          }
+      }
+      return {getName, getSurname, getFatherName, getAge, getFullName, setName, setSurname, setAge, setFatherName, setFullName}
+  }
 
     const a = createPersonClosureDestruct(createPerson("Vasya", "Pupkin"))
     const b = createPersonClosureDestruct({name: 'Nicholas', age: 75})
@@ -305,10 +322,12 @@
 
 {
     function isSorted(...arr){
-        if(arr.length > 0){
-            for(let i = 0; i < arr.length - 1; i++){
-                if(Number(arr[i]) && arr[i] > arr[i + 1]){
+        if(arr.length >= 2){
+            for(let i = 0;i <= arr.length; i++){
+                if(arr[i] >= arr[i + 1]){
                     return false
+                }else if(typeof arr[i] === "string"){
+                    return "Please number"
                 }
             }
             return true
@@ -320,84 +339,88 @@
 }
 
 {
-    function number(){
+    function isSorted(){
         const arr = []
         while(true){
             const num = prompt("Enter number please")
             if(Number(num)){
                 arr.push(num)
                 continue;
-            }else if(num === null){
+            }else if(num === null || num === ""){
                 break;
             }else{
-                alert("Please number!")
+                alert("Please number")
                 continue;
             }
         }
-        return arr
-    }
-
-    function isSorted(arr){
-        if(arr.length > 0){
-            for(let i = 0; i < arr.length - 1; i++){
-                if(Number(arr[i]) && arr[i] > arr[i + 1]){
-                    return false
+        if(arr.length >= 2){
+                for(let i = 0;i <= arr.length; i++){
+                    if(arr[i] >= arr[i + 1]){
+                        return false
+                    }
                 }
-            }
-            return true
-        }else{
-            return ""
+                return true
+            }else{
+                return ""
         }
     }
-    console.log(isSorted(number()))
+    console.log(isSorted())
 }
 
 {
     function createPersonClosure(name, surname){
-        let age = ''
-        let fatherName = ''
+        let age = 0
+        let fatherName = ""
+
         function getName(){
             return name
         }
+
         function getSurname(){
             return surname
         }
+
         function getFatherName(){
             return fatherName
         }
+
         function getAge(){
             return age
         }
+
         function getFullName(){
             return `${surname} ${name} ${fatherName}`
         }
 
+
         function setName(newName){
-            if(newName.slice(0,1).toUpperCase() === newName.slice(0,1) && newName.slice(1).toLowerCase() === newName.slice(1)){
+            if(typeof newName === "string" && newName.slice(0,1).toUpperCase() === newName.slice(0,1) && newName.slice(1).toLowerCase() === newName.slice(1)){
                 name = newName
                 return name
             }else{
                 return name
             }
         }
+
         function setSurname(newSurname){
-            if(newSurname.slice(0,1).toUpperCase() === newSurname.slice(0,1) && newSurname.slice(1).toLowerCase() === newSurname.slice(1)){
+            if(typeof newSurname === "string" && newSurname.slice(0,1).toUpperCase() === newSurname.slice(0,1) && newSurname.slice(1).toLowerCase() === newSurname.slice(1)){
                 surname = newSurname
                 return surname
             }else{
                 return surname
             }
         }
+
         function setFatherName(newFatherName){
-            if(newFatherName.slice(0,1).toUpperCase() === newFatherName.slice(0,1) && newFatherName.slice(1).toLowerCase() === newFatherName.slice(1)){
+            if(typeof newFatherName === "string" && newFatherName.slice(0,1).toUpperCase() === newFatherName.slice(0,1) && newFatherName.slice(1).toLowerCase() === newFatherName.slice(1)){
                 fatherName = newFatherName
                 return fatherName
             }else{
                 return fatherName
             }
         }
+
         function setAge(newAge){
-            
             if(newAge >= 0 && newAge <= 100){
                 age = newAge
                 return age
@@ -405,78 +428,72 @@
                 return age
             }
         }
-        function setFullName(newFullName) {
-        newFullName = newFullName.split(" ");
-        if (newFullName.length === 3) {
-            surname = setSurname(newFullName[0]);
-            name = setName(newFullName[1]);
-            fatherName = setFatherName(newFullName[2]);
-            return getFullName(); 
-        } else {
-            return getFullName(); 
+
+        function setFullName(newFullName){
+            let arr = newFullName.split(" ")
+            if(arr.length === 3){
+                surname = setSurname(arr[0])
+                name = setName(arr[1])
+                fatherName = setFatherName(arr[2])
+                return getFullName()
+            }else{
+                return getFullName()
+            }
         }
+        return {getName, getSurname, getFatherName, getAge, getFullName, setName, setSurname, setAge, setFatherName, setFullName}
     }
-
-        return {getName, getSurname, getFatherName, getAge, getFullName, setName, setSurname, setFatherName, setAge, setFullName}
-    }
-
-
 
     function personForm(parent, person){
+        const inputSurname = document.createElement("input")
+        const inputName = document.createElement("input")
+        const inputFatherName = document.createElement("input")
+        const inputAge = document.createElement("input")
+        const inputFullName = document.createElement("input")
 
-    const surnameInput = document.createElement("input")
-    const nameInput = document.createElement("input")
-    const fatherNameInput = document.createElement("input")
-    const ageInput = document.createElement("input")
-    const fullNameInput = document.createElement("input")
+        inputSurname.value = person.getSurname()
+        inputName.value = person.getName()
+        inputFatherName.value = person.getFatherName()
+        inputAge.value = person.getAge()
+        inputFullName.value = person.getFullName()
 
-    surnameInput.value = person.getSurname()
-    nameInput.value = person.getName()
-    fatherNameInput.value = person.getFatherName()
-    ageInput.value = person.getAge()
-    fullNameInput.value = person.getFullName()
+        parent.append(inputSurname, inputName, inputFatherName, inputAge, inputFullName)
 
-    parent.append(surnameInput,nameInput,fatherNameInput,ageInput,fullNameInput)
+        inputSurname.addEventListener("input", function(){
+            if(person.setSurname(inputSurname.value)){
+                inputSurname.value = person.getSurname()
+                inputFullName.value = person.getFullName()
+            }
+        })
 
-    surnameInput.addEventListener("input", function(){
-        let result = person.setSurname(surnameInput.value)
-        if(result){
-            surnameInput.value = person.getSurname()
-            fullNameInput.value = person.getFullName()
-        }
-    })
+        inputName.addEventListener("input", function(){
+            if(person.setName(inputName.value)){
+                inputName.value = person.getName()
+                inputFullName.value = person.getFullName()
+            }
+        })
 
-    nameInput.addEventListener("input", function(){
-        let result = person.setName(nameInput.value)
-        if(result){
-            nameInput.value = person.getName()
-            fullNameInput.value = person.getFullName()
-        }
-    })
+        inputFatherName.addEventListener("input", function(){
+            if(person.setFatherName(inputFatherName.value)){
+                inputFatherName.value = person.getFatherName()
+                inputFullName.value = person.getFullName()
+            }
+        })
 
-    fatherNameInput.addEventListener("input", function(){
-        let result = person.setFatherName(fatherNameInput.value)
-        if(result){
-            fatherNameInput.value = person.getFatherName()
-            fullNameInput.value = person.getFullName()
-        }
-    })
+        inputAge.addEventListener("input", function(){
+            if(!isNaN(inputAge.value)){
+                let result = person.setAge(inputAge.value)
+                inputAge.value = result
+            }else{
+                inputAge.value = ""
+            }
+        })
 
-    ageInput.addEventListener("input", function(){
-        if(!isNaN(ageInput.value)){
-            let result = person.setAge(ageInput.value)
-            ageInput.value = result
-        }else{
-            ageInput.value = ""
-        }
-    })
-
-    fullNameInput.addEventListener("input", function(){
-        fullNameInput.value = person.setFullName(fullNameInput.value)
-        surnameInput.value = person.getSurname()
-        nameInput.value = person.getName()
-        fatherNameInput.value = person.getFatherName()
-    })
+        inputFullName.addEventListener("input", function(){
+            inputFullName.value = person.setFullName(inputFullName.value)
+            inputSurname.value = person.getSurname()
+            inputName.value = person.getName()
+            inputFatherName.value = person.getFatherName()
+        })
     }
 
     const b = createPersonClosure("Anna", "Ivanova");
