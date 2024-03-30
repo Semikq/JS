@@ -1,206 +1,194 @@
-//Person Constructor
-// function Person(name, surname){
-//         this.name = name,
-//         this.surname = surname,
-//         this.getFullName = function(){
-//             return `${this.name} ${this.surname} ${this.fatherName? this.fatherName + " ":""}`
-//         }
-// }
+{
+function Person(name, surname){
+    this.name = name
+    this.surname = surname
+    this.getFullName = function(){
+        return `${this.name} ${this.surname} ${this.fatherName || ""}`
+    }
+}
 
-// const a = new Person("Vasya", "Pupkin")
-// const b = new Person("Anna", "Ivanova")
-// const c = new Person("Elizaveta", "Petrova")
+const a = new Person("Vasya", "Pupkin")
+const b = new Person("Hanna", "Ivanova")
+const c = new Person("Yelizaveta", "Petrova")
 
-// console.log(a.getFullName())
-// a.fatherName = 'Ivanovych'    
-// console.log(a.getFullName())
+console.log(a.getFullName())
+a.fatherName = 'Ivanovich'
+console.log(a.getFullName())
+console.log(b.getFullName())
+}
 
-// console.log(b.getFullName())
+{
+function Person(name, surname){
+    this.name = name
+    this.surname = surname
+}
 
+Person.prototype.getFullName = function(){
+    return `${this.name} ${this.surname} ${this.fatherName || ""}`
+}
 
-//Person Prototype
-// function Person(name, surname){
-//     this.name = name,
-//     this.surname = surname
-// }
+const a = new Person("Vasya", "Pupkin")
+const b = new Person("Hanna", "Ivanova")
+const c = new Person("Yelizaveta", "Petrova")
 
-// Person.prototype.getFullName = function(){
-//     return `${this.name} ${this.surname} ${this.fatherName? this.fatherName + " ":""}`
-// }
+console.log(a.getFullName())
+a.fatherName = 'Ivanovich'
+console.log(a.getFullName())
+console.log(b.getFullName())
+}
 
-// const a = new Person("Vasya", "Pupkin")
-// const b = new Person("Anna", "Ivanova")
-// const c = new Person("Elizaveta", "Petrova")
+{
+const goods = document.getElementById("goods")
+const yourMoney = document.getElementById("yourMoney")
+const select = document.getElementById("select")
+const amount = document.getElementById("amount")
+const moneys = document.getElementById("money")
+const button = document.getElementById("button")
 
-// console.log(a.getFullName())
-// a.fatherName = 'Ivanovych'    
-// console.log(a.getFullName())
+function reducer(state, { type, what, HowMany, money}) {
+    if (!state) {
+        return {
+            beer: {quantity: 100, cost: 6},
+            chips: {quantity: 100, cost: 4},
+            cola: {quantity: 100, cost: 3},
+            salad: {quantity: 100, cost: 8}
+        }
+    }
 
-// console.log(b.getFullName())
+    if (type === "buy") {
+        const totalCost = HowMany * state[what].cost
+        if(state[what].quantity - HowMany >= 0 && state[what].cost <= money && totalCost <= money && userMoney - totalCost >= 0){
+            casa += totalCost
+            userMoney -= totalCost
+            return {
+                    ...state,
+                    [what]: {
+                            quantity: state[what].quantity - HowMany,
+                            cost: state[what].cost
+                        }
+                }
+            }
+        }
+    return state;
+}
 
+function Store(reducer) {
+    let store = reducer(undefined, {})
+    let cbs = [];
 
-//Store
-// function Store(reducer){
-//     let state
-//     let listeners = []
+    this.getState = () => store
+    this.subscribe = cb => {
+        cbs.push(cb)
+        return () => {
+            cbs = cbs.filter(c => c !== cb)
+        };
+    };
 
-//     function getState(){
-//         return state
-//     }
+    this.dispatch = action => {
+        const newStore = reducer(store, action)
+        if (newStore !== store) {
+            store = newStore
+            document.title = `Casa: ${casa}`
+            yourMoney.value = userMoney
+            for (let cb of cbs) cb()
+        }
+    };
+}
 
-//     function dispatch(action){
-//         let newState = reducer(state, action)
-//         if(newState !== state){
-//             state = newState
-//             for(let listener of listeners){
-//                 listener()
-//             }
-//             document.title = `cash: ${state.cash}`
-//         }
-//     }
+let casa = 0
+let userMoney
 
-//     dispatch({})
+let store = new Store(reducer)
 
-//     function subscribe(listener){
-//         listeners.push(listener)
-//         return () => {
-//             listeners = listeners.filter(l => l !== listener)
-//         }
-//     }
+function update(){
+    goods.innerText = ""
+    for(let item in store.getState()){
+        const {quantity, cost} = store.getState()[item]
+        const div = document.createElement("div")
+        div.innerText = `${item}: quantity - ${quantity}, cost - ${cost}`
+        goods.append(div)
+    }
+}
+store.subscribe(update)
 
-//     return{
-//         getState,
-//         dispatch,
-//         subscribe
-//     }
-// }
+for(let item in store.getState()){
+    const option = document.createElement("option")
+    option.value = item
+    option.innerText = item
+    select.append(option)
+}
 
-// let goods = {
-//     beer: {number: 100, cost: 5},
-//     kvass: {number: 100, cost: 10},
-//     chips: {number: 100, cost: 8}
-// }
+button.addEventListener("click", function(){
+    store.dispatch({type: "buy", what: select.value, HowMany: amount.value, money: moneys.value})
+    yourMoney.disabled = true
+    userMoney = yourMoney.value || 100
+})
+update()
+}
 
-// function reducer(state = {goods , cash: 0}, {what, howMany, money}){
-//     if(!state){
-//         return state
-//     }
-//     if(state.goods[what] && state.goods[what].cost >= howMany && money >= howMany * state.goods[what].cost){
-//         return {
-//             ...state,
-//                 goods: {
-//                     ...state.goods,
-//                     [what]: {
-//                     ...state.goods[what],
-//                     number: state.goods[what].number - howMany
-//                 }
-//             },
-//             cash: state.cash + howMany * state.goods[what].cost
-//             };
-//     }
-//     return state
-// }
+{
+function Password(parent, open) {
+    let password = document.createElement("input");
+    let button = document.createElement("button");
+    parent.append(password);
+    parent.append(button);
 
-// let state = new Store(reducer)
+    button.textContent = open ? "Hide" : "Show";
 
-// let kiosk = document.getElementById("kiosk")
-// let select = document.getElementById("select")
-// let number = document.getElementById("number")
-// let money = document.getElementById("money")
-// let button = document.getElementById("button")
+    this.setStyle = function (style) {
+        for (const property in style) {
+            password.style[property] = style[property];
+        }
+    };
 
-// for(let good in state.getState().goods){
-//     let div = document.createElement("div")
-//     div.innerText = `${good} ${state.getState().goods[good].number}, price: ${state.getState().goods[good].cost}`
-//     kiosk.append(div)
-// }
+    this.setValue = function (value) {
+        password.value = value;
+        сallback();
+    };
 
-// for(let good in state.getState().goods){
-//     let option = document.createElement("option")
-//     option.innerText = good
-//     select.append(option)
-// }
+    this.getValue = function () {
+        return password.value;
+    };
 
-// state.subscribe (function (){
-//     kiosk.innerText = ""
-//     for(let good in state.getState().goods){
-//         let div = document.createElement("div")
-//         div.innerText = `${good} ${state.getState().goods[good].number}, price: ${state.getState().goods[good].cost}`
-//         kiosk.append(div)
-//     }
-// })
+    this.setOpen = function (isOpen) {
+        password.type = isOpen ? 'text' : 'password';
+        button.textContent = isOpen ? 'Hide' : 'Show';
+        if (typeof this.onOpenChange) {
+            this.onOpenChange(isOpen);
+        }
+    };
 
-// button.addEventListener("click", function(){
-//     let SSelect = select.value
-//     let NNumber = parseInt(number.value)
-//     let MMoney = parseInt(money.value)
-//     state.dispatch({what: SSelect, howMany: NNumber, money: MMoney})
-// })
+    this.getOpen = function () {
+        return password.type;
+    };
 
+    function сallback() {
+        if (typeof this.onChange === 'function') {
+            this.onChange(password.value);
+        }
+    }
 
-//Password
-// function Password(parent, open) {
-//     let password = document.createElement("input");
-//     let button = document.createElement("button");
-//     parent.append(password);
-//     parent.append(button);
+    button.addEventListener('click', () => {
+        this.setOpen(password.type === 'password');
+    });
+}
 
-//     button.textContent = open ? "Hide" : "Show";
+let p = new Password(document.body, true);
 
-//     this.setStyle = function (style) {
-//         for (const property in style) {
-//             password.style[property] = style[property];
-//         }
-//     };
+p.onChange = data => console.log('onChange:', data);
+p.onOpenChange = open => console.log('onOpenChange:', open);
 
-//     this.setValue = function (value) {
-//         password.value = value;
-//         сallback();
-//     };
+p.setValue('qwerty');
+console.log('getValue:', p.getValue());
 
-//     this.getValue = function () {
-//         return password.value;
-//     };
+p.setOpen(false);
+console.log('getOpen:', p.getOpen());
 
-//     this.setOpen = function (isOpen) {
-//         password.type = isOpen ? 'text' : 'password';
-//         button.textContent = isOpen ? 'Hide' : 'Show';
-//         if (typeof this.onOpenChange) {
-//             this.onOpenChange(isOpen);
-//         }
-//     };
-
-//     this.getOpen = function () {
-//         return password.type;
-//     };
-
-//     function сallback() {
-//         if (typeof this.onChange === 'function') {
-//             this.onChange(password.value);
-//         }
-//     }
-
-//     button.addEventListener('click', () => {
-//         this.setOpen(password.type === 'password');
-//     });
-// }
-
-// let p = new Password(document.body, true);
-
-// p.onChange = data => console.log('onChange:', data);
-// p.onOpenChange = open => console.log('onOpenChange:', open);
-
-// p.setValue('qwerty');
-// console.log('getValue:', p.getValue());
-
-// p.setOpen(false);
-// console.log('getOpen:', p.getOpen());
-
-// p.setStyle({
-//     color: 'red',
-//     backgroundColor: 'lightgray'
-// });
-
+p.setStyle({
+    color: 'red',
+    backgroundColor: 'lightgray'
+});
+}
 
 //LoginForm
 // function Password(parent, open) {
@@ -425,4 +413,4 @@
 //             password1.setStyle({ border: 'none' });
 //             password2.setStyle({ border: 'none' });
 //         }
-//     };
+//     }
