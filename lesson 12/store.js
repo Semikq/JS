@@ -5,13 +5,10 @@ const amount = document.getElementById("amount")
 const moneys = document.getElementById("money")
 const button = document.getElementById("button")
 
-let casa = 0
-let userMoney
-
 function reducer(state, { type, what, HowMany, money}) {
     if (!state) {
         return {
-            bear: {quantity: 100, cost: 6},
+            beer: {quantity: 100, cost: 6},
             chips: {quantity: 100, cost: 4},
             cola: {quantity: 100, cost: 3},
             salad: {quantity: 100, cost: 8}
@@ -37,7 +34,7 @@ function reducer(state, { type, what, HowMany, money}) {
 
 function createStore(reducer) {
     let store = reducer(undefined, {})
-    const cbs = [];
+    let cbs = [];
 
     const getState = () => store
     const subscribe = cb => {
@@ -63,6 +60,9 @@ function createStore(reducer) {
         subscribe
     };
 }
+
+let casa = 0
+let userMoney
 
 let store = createStore(reducer)
 
