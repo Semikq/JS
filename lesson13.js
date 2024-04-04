@@ -127,142 +127,121 @@ update()
 }
 
 {
-function Password(parent, open) {
-    let password = document.createElement("input");
-    let button = document.createElement("button");
-    parent.append(password);
-    parent.append(button);
-
-    button.textContent = open ? "Hide" : "Show";
-
-    this.setStyle = function (style) {
-        for (const property in style) {
-            password.style[property] = style[property];
+    function Password(parent, open) {
+        const input = document.createElement("input");
+        const button = document.createElement("button");
+        input.type = open ? "text" : "password";
+        button.innerText = open ? "Hide" : "Show";
+    
+        this.setStyle = function(color){
+            input.style.backgroundColor = color
         }
+    
+        this.setValue = function(text) {
+            input.value = text;
+        };
+    
+        this.getValue = function() {
+            return input.value;
+        };
+    
+        this.setOpen = function(isOpen) {
+            input.type = isOpen ? "text" : "password";
+            button.innerText = isOpen ? "Hide" : "Show";
+            if (this.onOpenChange) {
+                this.onOpenChange(isOpen);
+            }
+        };
+    
+        this.getOpen = function() {
+            return input.type === "text";
+        };
+    
+        button.onclick = () => {
+            this.setOpen(input.type === "password");
+        };
+    
+        input.oninput = () => {
+            this.onOpenChange(input.value)
+        }
+    
+        parent.append(input, button);
+    }
+    
+    let p = new Password(document.body, true);
+    
+    p.onChange = data => console.log(data);
+    p.onOpenChange = open => console.log(open);
+    
+    p.setValue('qwerty');
+    console.log(p.getValue());
+    
+    p.setOpen(false);
+    console.log(p.getOpen());
+    
+    p.setStyle("red")
+}
+
+{
+function Password(parent, open) {
+    const input = document.createElement("input");
+    input.type = open ? "text" : "password";
+
+    this.setStyle = function(color){
+        input.style.backgroundColor = color;
     };
 
-    this.setValue = function (value) {
-        password.value = value;
-        сallback();
+    this.setValue = function(text) {
+        input.value = text;
     };
 
-    this.getValue = function () {
-        return password.value;
+    this.getValue = function() {
+        return input.value;
     };
 
-    this.setOpen = function (isOpen) {
-        password.type = isOpen ? 'text' : 'password';
-        button.textContent = isOpen ? 'Hide' : 'Show';
-        if (typeof this.onOpenChange) {
+    this.setOpen = function(isOpen) {
+        input.type = isOpen ? "text" : "password";
+        if (this.onOpenChange) {
             this.onOpenChange(isOpen);
         }
     };
 
-    this.getOpen = function () {
-        return password.type;
+    this.getOpen = function() {
+        return input.type === "text";
     };
 
-    function сallback() {
-        if (typeof this.onChange === 'function') {
-            this.onChange(password.value);
+    input.oninput = () => {
+        if (this.onChange) {
+            this.onChange();
         }
+    };
+
+    parent.append(input);
+}
+
+let form = document.createElement("form");
+document.body.append(form);
+
+let login = new Password(form, true);
+let password = new Password(form, true);
+
+const button = document.createElement("button");
+button.disabled = true;
+form.append(button);
+
+function check() {
+    if (login.getValue() && password.getValue()) {
+        button.disabled = false;
+    } else {
+        button.disabled = true;
     }
-
-    button.addEventListener('click', () => {
-        this.setOpen(password.type === 'password');
-    });
 }
 
-let p = new Password(document.body, true);
+login.onChange = password.onChange = check;
 
-p.onChange = data => console.log('onChange:', data);
-p.onOpenChange = open => console.log('onOpenChange:', open);
-
-p.setValue('qwerty');
-console.log('getValue:', p.getValue());
-
-p.setOpen(false);
-console.log('getOpen:', p.getOpen());
-
-p.setStyle({
-    color: 'red',
-    backgroundColor: 'lightgray'
-});
+login.onChange = data => console.log(data);
+login.onOpenChange = open => console.log(open);
 }
-
-//LoginForm
-// function Password(parent, open) {
-//     let password = document.createElement("input");
-//     parent.appendChild(password);
-
-//     password.type = open ? 'text' : 'password';
-
-//     this.setStyle = function (style) {
-//         for (const property in style) {
-//             password.style[property] = style[property];
-//         }
-//     };
-
-//     this.setValue = function (value) {
-//         password.value = value;
-//         triggerChangeCallback();
-//     };
-
-//     this.getValue = function () {
-//         return password.value;
-//     };
-
-//     this.setOpen = function (isOpen) {
-//         password.type = isOpen ? 'text' : 'password';
-//         button.textContent = isOpen ? 'Hide' : 'Show';
-//         if (typeof this.onOpenChange === 'function') {
-//             this.onOpenChange(isOpen);
-//         }
-//     };
-
-//     this.getOpen = function () {
-//         return password.type === 'text';
-//     };
-
-//     this.setOnChangeCallback = function (callback) {
-//         this.onChange = callback;
-//     };
-
-//     this.setOnOpenChangeCallback = function (callback) {
-//         this.onOpenChange = callback;
-//     };
-
-//     function triggerChangeCallback() {
-//         if (typeof this.onChange === 'function') {
-//             this.onChange(password.value);
-//         }
-//     }
-
-//     password.addEventListener('input', triggerChangeCallback.bind(this));
-
-// }
-
-// let form = document.createElement("form");
-// document.body.appendChild(form);
-
-// let login = new Password(form, true);
-// let passwordField = new Password(form, true);
-
-// let button = document.createElement("button");
-// document.body.appendChild(button);
-// button.innerHTML = "Enter";
-// button.disabled = true;
-
-// button.addEventListener("click", function () {
-//     alert("Successfully");
-// });
-
-// login.setOnChangeCallback(check);
-// passwordField.setOnChangeCallback(check);
-
-// function check() {
-//     button.disabled = !login.getValue() || !passwordField.getValue();
-// }
 
 
 //LoginForm Constructor
