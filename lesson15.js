@@ -1,216 +1,195 @@
-//fetch basic
-// function Luke(DOM, data){
-//   let table = document.createElement("table")
-//   table.style.border = "solid 1px black"
+{
+function createJSON(DOM, file){
+    let table = document.createElement("table")
+    table.style.border = "solid 1px black"
+    for(let key in file){
+        let tr = document.createElement("tr")
+        let keyTd = document.createElement("td")
+        let valueTd = document.createElement("td")
 
-//   for(let key in data){
-//     let tr = document.createElement("tr")
+        keyTd.innerText = key
+        keyTd.style.border = "solid 1px black"
+        valueTd.innerText = file[key]
+        valueTd.style.border = "solid 1px black"
 
-//     let tdKey = document.createElement('td')
-//     tdKey.innerText = key
-//     tdKey.style.border = "solid 1px black"
-//     tr.appendChild(tdKey)
+        tr.append(keyTd)
+        tr.append(valueTd)
+        table.append(tr)
+    }
+    DOM.append(table)
+}
 
-//     let tdValue = document.createElement("td")
-//     tdValue.innerText = data[key]
-//     tdValue.style.border = "solid 1px black"
-//     tr.appendChild(tdValue)
+fetch('https://worldtimeapi.org/api/ip')
+.then(res => res.json())
+.then(file => createJSON(document.body, file))
+}
 
-//     table.appendChild(tr)
-//   }
-//   DOM.appendChild(table)
-// }
+{
+function Luke(DOM, data) {
+  let table = document.createElement("table");
+  table.style.border = "solid 1px black";
+  DOM.innerText = ""
+  for (let key in data) {
+    let tr = document.createElement("tr");
 
-// fetch('https://swapi.dev/api/people/1/')
-// .then(result => result.json())
-// .then(luke => Luke(document.body, luke))
+    let tdKey = document.createElement('td');
+    tdKey.innerText = key;
+    tdKey.style.border = "solid 1px black";
+    tr.appendChild(tdKey);
 
+    let tdValue = document.createElement("td");
+    tdValue.innerText = data[key];
+    tdValue.style.border = "solid 1px black";
+    tr.appendChild(tdValue);
 
-//fetch improved
-// function Luke(DOM, data) {
-//   let table = document.createElement("table");
-//   table.style.border = "solid 1px black";
-//   DOM.innerText = ""
-//   for (let key in data) {
-//     let tr = document.createElement("tr");
+    table.appendChild(tr);
 
-//     let tdKey = document.createElement('td');
-//     tdKey.innerText = key;
-//     tdKey.style.border = "solid 1px black";
-//     tr.appendChild(tdKey);
+    if (typeof data[key] === "string" && data[key].includes(`https://worldtimeapi.org/api/ip`)) {
+      let button = document.createElement("button");
+      button.innerText = "click";
+      tr.appendChild(button);
+      button.addEventListener("click", () => {
+        fetch(data[key])
+          .then(result => result.json())
+          .then(data => Luke(DOM, data));
+      });
+    }
 
-//     let tdValue = document.createElement("td");
-//     tdValue.innerText = data[key];
-//     tdValue.style.border = "solid 1px black";
-//     tr.appendChild(tdValue);
+    if(Array.isArray(data[key])){
+      for(let element of data[key]){
+        if (typeof element === "string" && element.includes(`https://worldtimeapi.org/api/ip`)) {
+      let button = document.createElement("button");
+      button.innerText = "click";
+      tr.appendChild(button);
+      button.addEventListener("click", () => {
+        fetch(element)
+          .then(result => result.json())
+          .then(data => Luke(DOM, data));
+      });
+    }
+    }
+  }
+  }
+  DOM.appendChild(table);
+}
 
-//     table.appendChild(tr);
+fetch(`https://worldtimeapi.org/api/ip`)
+  .then(result => result.json())
+  .then(luke => Luke(document.body, luke));
+}
 
-//     if (typeof data[key] === "string" && data[key].includes(`https://swapi.dev/api/`)) {
-//       let button = document.createElement("button");
-//       button.innerText = "click";
-//       tr.appendChild(button);
-//       button.addEventListener("click", () => {
-//         fetch(data[key])
-//           .then(result => result.json())
-//           .then(data => Luke(DOM, data));
-//       });
-//     }
+{
+let url = `https://worldtimeapi.org/api/ip`
+let ms = 1000
 
-//     if(Array.isArray(data[key])){
-//       for(let element of data[key]){
-//         if (typeof element === "string" && element.includes(`https://swapi.dev/api/`)) {
-//       let button = document.createElement("button");
-//       button.innerText = "click";
-//       tr.appendChild(button);
-//       button.addEventListener("click", () => {
-//         fetch(element)
-//           .then(result => result.json())
-//           .then(data => Luke(DOM, data));
-//       });
-//     }
-//     }
-//   }
-//   }
-//   DOM.appendChild(table);
-// }
+function link(url){
+    return fetch(url).then(result => result.json())
+}
 
-// fetch(`https://swapi.dev/api/people/1/`)
-//   .then(result => result.json())
-//   .then(luke => Luke(document.body, luke));
+function check(ms){
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
 
+Promise.race([link(url), check(ms)]).then(result => console.log(result))
+}
 
-//race
-// let url = `https://swapi.dev/api/people/1/`
-// let ms = 1000
+{
+function confirmPromise(text) {
+    return new Promise((fulfilled, reject) => {
+        let result = confirm(text);
+        if (result) {
+            fulfilled();
+        } else {
+            reject();
+        }
+    });
+}
 
-// function swapi(url){
-//   return fetch(url).then(result => result.json())
-// }
+confirmPromise('Проміси це складно?')
+    .then(() => console.log('не так вже й складно'))
+    .catch(() => console.log('respect за посидючість і уважність'));
+}
 
-// function delay(ms){
-//   return new Promise(resolve => setTimeout(resolve, ms))
-// }
+{
+function confirmPromise(text) {
+    return new Promise((fulfilled, reject) => {
+        let result = prompt(text);
+        if (result) {
+            fulfilled();
+        } else {
+            reject();
+        }
+    });
+}
 
-// Promise.race([swapi(url), delay(ms)])
-// .then(result => console.log(result))
+confirmPromise('Проміси це складно?')
+    .then(() => console.log('не так вже й складно'))
+    .catch(() => console.log('respect за посидючість і уважність'));
+}
 
+{
+function LoginForm(parent, open) {
+    const input = document.createElement("input");
+    input.type = open ? "text" : "password";
 
-//Promisify: confirm
-// function confirmPromise(text){
-//   return new Promise((resolve, reject) => {
-//     let result = confirm(text)
-//     if(result){
-//       resolve()
-//     }else{
-//       reject()
-//     }
-//   })
-// }
+    this.setValue = function(text) {
+        input.value = text;
+    };
 
-// confirmPromise('Проміси це складно?').then(() => console.log('не так вже й складно'),
-//                                          () => console.log('respect за посидючість і уважність'))
+    this.getValue = function() {
+        return input.value;
+    };
 
+    this.setOpen = function(isOpen) {
+        input.type = isOpen ? "text" : "password";
+        if (this.onOpenChange) {
+            this.onOpenChange(isOpen);
+        }
+    };
 
-//Promisify: prompt
-// function promptPromise(text){
-//   return new Promise((resolve, reject) => {
-//     let result = prompt(text)
-//     if(result){
-//       resolve(result)
-//     }else{
-//       reject()
-//     }
-//     let name = result
-//   })
-// }
-// promptPromise("Як тебе звуть?").then(name => console.log(`Тебе звуть ${name}`),
-//                                     () => console.log('Ну навіщо морозитися, нормально ж спілкувалися'))
+    this.getOpen = function() {
+        return input.type === "text";
+    };
 
+    input.oninput = () => {
+        if (this.onChange) {
+            this.onChange();
+        }
+    };
 
-//Promisify: LoginForm
-// function Password(parent, open) {
-//   let password = document.createElement("input");
-//   parent.appendChild(password)
-//   password.type = open ? 'text' : 'password'
+    parent.appendChild(input);
+}
 
-//   this.setStyle = function (style) {
-//       for (const property in style) {
-//           password.style[property] = style[property]
-//       }
-//   };
+function loginPromise(parent) {
+    function executor(resolve, reject) {
+        const form = document.createElement("form");
+        const loginInput = new LoginForm(form, true);
+        const passwordInput = new LoginForm(form, false);
+        const button = document.createElement("button");
+        button.innerText = "...Login";
+        button.disabled = true
+        form.appendChild(button);
 
-//   this.setValue = function (value) {
-//       password.value = value
-//       triggerChangeCallback()
-//   };
+        function check(){
+            if(loginInput.getValue() && passwordInput.getValue()){
+                button.disabled = false
+            }
+        }
 
-//   this.getValue = function () {
-//       return password.value
-//   };
+        button.addEventListener("click", () => {
+            event.preventDefault();
+            resolve({
+                login: loginInput.getValue(),
+                password: passwordInput.getValue()
+            });
+        });
 
-//   this.setOpen = function (isOpen) {
-//       password.type = isOpen ? 'text' : 'password'
-//       button.textContent = isOpen ? 'Hide' : 'Show'
-//       if (typeof this.onOpenChange === 'function') {
-//           this.onOpenChange(isOpen)
-//       }
-//   };
-
-//   this.getOpen = function () {
-//       return password.type === 'text'
-//   };
-
-//   this.setOnChangeCallback = function (callback) {
-//       this.onChange = callback
-//   };
-
-//   this.setOnOpenChangeCallback = function (callback) {
-//       this.onOpenChange = callback
-//   };
-
-//   function triggerChangeCallback() {
-//       if (typeof this.onChange === 'function') {
-//           this.onChange(password.value)
-//       }
-//   }
-
-//   password.addEventListener('input', triggerChangeCallback.bind(this))
-// }
-
-// function LoginForm(parent) {
-//   let login = new Password(parent, true)
-//   let passwordField = new Password(parent, true)
-
-//   let button = document.createElement("button")
-//   parent.appendChild(button)
-//   button.innerHTML = "Enter"
-//   button.disabled = true
-
-//   function check() {
-//       button.disabled = !login.getValue() || !passwordField.getValue()
-//   }
-
-//   let resolveFunction;
-
-//   button.addEventListener("click", function () {
-//       resolveFunction({
-//           login: login.getValue(),
-//           password: passwordField.getValue()
-//       });
-//   });
-
-//   login.setOnChangeCallback(check)
-//   passwordField.setOnChangeCallback(check)
-
-//   const executor = (resolve, reject) => {
-//       resolveFunction = resolve
-//   };
-
-//   return new Promise(executor)
-// }
-
-// function loginPromise(parent) {
-//   return new LoginForm(parent)
-// }
-// loginPromise(document.body).then(({ login, password }) => console.log(`Ви ввели ${login} та ${password}`))
+        loginInput.onChange = passwordInput.onChange = check
+        parent.appendChild(form);
+    }
+    return new Promise(executor);
+}
+loginPromise(document.body).then(({ login, password }) => {
+    console.log(`Ви ввели ${login} та ${password}`);
+});
+}
