@@ -44,3 +44,47 @@
     checkLoop()
     getMessages()
 }
+
+{
+    async function swapiLinks(url){
+        const response = await fetch(url)
+        const data = await response.json()
+
+        async function check(data){
+            const arr = []
+            for(let element in data){
+                const value = data[element]
+                if(value && typeof value === "string" && value.includes("http")){
+                    arr.push(
+                        fetch(value).then(result => result.json())
+                        .then(result => {data[element] = result})
+                    )
+                }else if(value && typeof value === "object"){
+                    arr.push(check(value))
+                }
+            }
+            await Promise.all(arr)
+        }
+        await check(data)
+        return data
+    }
+    
+    swapiLinks("https://swapi.dev/api/people/20/")
+    .then(yodaWithLinks => console.log(JSON.stringify(yodaWithLinks, null, 4)))
+}
+
+{
+    function domEventPromise(element, eventName) {
+        function executor(resolve) {
+            function eventHandler(event) {
+                element.removeEventListener(eventName, eventHandler);
+                resolve(event);
+            }
+            element.addEventListener(eventName, eventHandler);
+        }
+        return new Promise(executor);
+    }
+
+    const button = document.getElementById('button');
+    domEventPromise(button, 'click').then(error => console.log('event click happens', error));
+}
