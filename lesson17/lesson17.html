@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            background-color: gray;
+            width: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            gap: 10px;
+            border: solid 1px black;
+            border-radius: 40px;
+        }
+
+        .colors{
+            height: 140px;
+            width: 140px;
+            border: solid 1px black;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            background-color: slategrey;
+        }
+
+        #button{
+            margin: 10px 0 0 20px;
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="green" class="colors"></div>
+        <!-- <div id="yellow" class="colors"></div> -->
+        <div id="red" class="colors"></div>
+    </div>
+    <input type="button" value="Press to Walk" id="button">
+    <script src="lesson17.js"></script>
+</body>
+</html>
